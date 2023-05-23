@@ -1,0 +1,10 @@
+.area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Montserrat';
+    flex-wrap: wrap;
+    gap: 20px;
+    width: 85vw;
+    min-height: 20vw;
+}

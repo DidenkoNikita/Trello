@@ -2,13 +2,13 @@
 
 import { useRouter } from "next/navigation";
 
-import { Box, Button, TextField } from "@mui/material";
 import { Login, PersonAdd } from "@mui/icons-material";
+import { Box, Button, TextField } from "@mui/material";
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { LoginUrl } from "@/url/loginUrl";
+import { SignupUrl } from "@/url/signupUrl";
 
 import { StartingHeader } from "@/components/StartingHeader/StartingHeader";
 
@@ -19,38 +19,42 @@ interface Data {
   refreshToken: string;
 }
 
-export default function LoginForm(): JSX.Element {
+export default function RegistrationForm(): JSX.Element {
+
   const router = useRouter();
 
   const initialValues = {
     login: '',
     password: '',
+    fullName: ''
   };
 
   const validationSchema = Yup.object({
     login: Yup.string().email('Invalid email address').required('Email is required'),
     password: Yup.string().required('Password is required'),
+    fullName: Yup.string().required('Full name is required')
   });
 
   const handleSubmit = async (values: typeof initialValues, actions: any): Promise<void> => {
     const login: string = values.login;
+    const fullName: string = values.fullName;
     const password: string = values.password;
     try {
-      const response: Response = await fetch(`${LoginUrl}`, {
+      const response: Response = await fetch(`${SignupUrl}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({login, password})
+        body: JSON.stringify({login, password, fullName})
       });
       const data = await response.json();
-
+      
       const {id, refreshToken}: Data = data;
 
-      if (response.status === 200) {
+      if (response.status === 200 || response.status === 204) {
         localStorage.setItem('user_id', JSON.stringify(id));
-        localStorage.setItem('refresh_token', JSON.stringify(refreshToken));        
-        router.push('/home/to_do_list');
+        localStorage.setItem('refresh_token', JSON.stringify(refreshToken));
+        router.push('/home/to_do_list');        
         actions.setSubmitting(false);
       }
     } catch (error) {
@@ -62,22 +66,25 @@ export default function LoginForm(): JSX.Element {
   const handleKeyDown = async (values: typeof initialValues, actions: any, event: any): Promise<void> => {
     if (event.key === 'Enter') {
       const login: string = values.login;
+      const fullName: string = values.fullName;
       const password: string = values.password;
       try {
-        const response: Response = await fetch(`${LoginUrl}`, {
+        const response: Response = await fetch(`${SignupUrl}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({login, password})
+          body: JSON.stringify({login, password, fullName})
         });
+
         const data = await response.json();
 
         const {id, refreshToken}: Data = data;
+
         
-        if (response.status === 200) {
+        if (response.status === 200 || response.status === 204) {
           localStorage.setItem('user_id', JSON.stringify(id));
-          localStorage.setItem('refresh_token', JSON.stringify(refreshToken))
+          localStorage.setItem('refresh_token', JSON.stringify(refreshToken));
           router.push('/home/to_do_list');
           actions.setSubmitting(false);
         }
@@ -97,15 +104,15 @@ export default function LoginForm(): JSX.Element {
         onSubmit={handleSubmit}
         onKeyDown={handleKeyDown}
       >
-        <Form className={css.form} >
-          <Box 
+        <Form className={css.form}>
+          <Box
             sx={{
               color: 'text.primary',
               fontSize: '20px',
               fontWeight: 'bold'
             }}
           >
-            Вход
+            Регистрация
           </Box>
           <Box>
             <Field 
@@ -115,13 +122,32 @@ export default function LoginForm(): JSX.Element {
               placeholder="Email" 
               as={TextField} 
               variant="outlined" 
-              size="small"
+              size="small" 
               sx={{
                 margin: '20px 0 10px 0'
-              }} 
+              }}
             />
             <ErrorMessage 
               name="login" 
+              component="div" 
+              className={css.error} 
+            />
+          </Box>
+          <Box>
+            <Field 
+              type="text" 
+              name="fullName" 
+              id="fullName" 
+              placeholder="Full name" 
+              as={TextField} 
+              variant="outlined" 
+              size="small" 
+              sx={{
+                marginBottom: '10px'
+              }}
+            />
+            <ErrorMessage 
+              name="fullName" 
               component="div" 
               className={css.error} 
             />
@@ -150,20 +176,22 @@ export default function LoginForm(): JSX.Element {
               margin: '10px 0' 
             }}
           >
-            <Login sx={{ paddingRight: '3px' }} />
-            Войти
-          </Button>
-          <Button 
-            variant='contained' 
-            size='small'
-            onClick={() => router.push('/registration')}
-          >
             <PersonAdd 
               sx={{
                 paddingRight: '3px'
               }}
             />
             Регистрация
+          </Button>
+          <Button 
+            variant='contained' 
+            size='small'
+            onClick={() => {
+              router.push('/');
+            }}
+          >
+            <Login sx={{ paddingRight: '3px' }} />
+            Войти
           </Button>
         </Form>
       </Formik>

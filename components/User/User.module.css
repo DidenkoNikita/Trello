@@ -1,0 +1,10 @@
+.name {
+  font-size: 15px;
+  color: white;
+  align-self: center;
+  margin-left: 20px;
+}
+
+.nameArea {
+  display: flex;
+}

@@ -1,0 +1,1 @@
+export const UserUrl: string = 'http://127.0.0.1:7000/user';
