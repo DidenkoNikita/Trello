@@ -1,16 +1,16 @@
 'use client';
 
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
-import { Login, PersonAdd } from "@mui/icons-material";
-import { Box, Button, TextField } from "@mui/material";
+import { Login, PersonAdd } from '@mui/icons-material';
+import { Box, Button, TextField } from '@mui/material';
 
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { SignupUrl } from "@/url/signupUrl";
+import { SignupUrl } from '@/url/signupUrl';
 
-import { StartingHeader } from "@/components/StartingHeader/StartingHeader";
+import { StartingHeader } from '@/components/StartingHeader/StartingHeader';
 
 import css from './page.module.css';
 
@@ -99,12 +99,12 @@ export default function RegistrationForm(): JSX.Element {
     <Box>
       <StartingHeader />
       <Formik 
-        initialValues={initialValues} 
-        validationSchema={validationSchema} 
-        onSubmit={handleSubmit}
-        onKeyDown={handleKeyDown}
+        initialValues={ initialValues } 
+        validationSchema={ validationSchema } 
+        onSubmit={ handleSubmit }
+        onKeyDown={ handleKeyDown }
       >
-        <Form className={css.form}>
+        <Form className={ css.form } >
           <Box
             sx={{
               color: 'text.primary',
@@ -116,62 +116,62 @@ export default function RegistrationForm(): JSX.Element {
           </Box>
           <Box>
             <Field 
-              type="text" 
-              name="login" 
-              id="login" 
-              placeholder="Email" 
+              type='text'
+              name='login'
+              id='login'
+              placeholder='Email'
               as={TextField} 
-              variant="outlined" 
-              size="small" 
+              variant='outlined'
+              size='small' 
               sx={{
                 margin: '20px 0 10px 0'
               }}
             />
             <ErrorMessage 
-              name="login" 
-              component="div" 
+              name='login'
+              component='div'
               className={css.error} 
             />
           </Box>
           <Box>
             <Field 
-              type="text" 
-              name="fullName" 
-              id="fullName" 
-              placeholder="Full name" 
+              type='text' 
+              name='fullName' 
+              id='fullName'
+              placeholder='Full name'
               as={TextField} 
-              variant="outlined" 
-              size="small" 
+              variant='outlined'
+              size='small'
               sx={{
                 marginBottom: '10px'
               }}
             />
             <ErrorMessage 
-              name="fullName" 
-              component="div" 
+              name='fullName'
+              component='div'
               className={css.error} 
             />
           </Box>
           <Box>
             <Field 
-              type="password" 
-              name="password" 
-              id="password" 
-              placeholder="Password" 
+              type='password'
+              name='password'
+              id='password' 
+              placeholder='Password'
               as={TextField} 
-              variant="outlined" 
-              size="small" 
+              variant='outlined'
+              size='small'
             />
             <ErrorMessage 
-              name="password" 
-              component="div" 
-              className={css.error2} 
+              name='password'
+              component='div'
+              className={ css.error2 } 
             />
           </Box>
           <Button 
-            type="submit" 
-            variant="contained" 
-            size="small" 
+            type='submit' 
+            variant='contained'
+            size='small'
             sx={{ 
               margin: '10px 0' 
             }}

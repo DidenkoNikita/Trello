@@ -27,9 +27,15 @@ export default function Custom404() {
           marginRight: '10px'
         }}
       >
-        404 - Page Not Found
+        401 - Not Authorized
       </Box>
-      <IconButton onClick={router.back}>
+      <IconButton 
+        onClick={() => {
+          localStorage.setItem('user_id', 'net_aidi');
+          localStorage.setItem('refresh_token', 'net_tokena');
+          router.push('/');
+        }}
+      >
         <ReplyAll />
       </IconButton>
     </Box>

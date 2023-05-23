@@ -1,8 +1,8 @@
 'use client';
 
-import { Avatar, Box } from "@mui/material"
+import { Avatar, Box } from '@mui/material';
 
-import css from './User.module.css'
+import css from './User.module.css';
 
 export interface Name {
   name: string;

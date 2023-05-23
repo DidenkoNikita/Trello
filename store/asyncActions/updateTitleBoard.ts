@@ -44,7 +44,7 @@ export const titleBoardUpdate = (selectId: number | null, selectTitle: string): 
     }
 
     if (response.status === 401) {
-      window.location.assign('/');
+      window.location.assign('/401');
     }
   } catch (e) {
     return console.log(e);

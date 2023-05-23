@@ -19,6 +19,11 @@
   color: white;
   text-decoration: none;
 }
+
+.activate {
+  color: #90caf9;
+  text-decoration: none;
+}
   
 .link:hover {
   text-decoration: none;

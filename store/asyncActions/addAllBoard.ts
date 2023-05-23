@@ -43,7 +43,7 @@ export const addAllBoard = (): ThunkAction<
     }
 
     if (response.status === 401) {
-      window.location.assign('/');
+      window.location.assign('/401');
     }
 
   } catch (e) {

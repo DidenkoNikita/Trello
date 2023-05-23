@@ -6,11 +6,12 @@ import { Box, ButtonBase } from '@mui/material';
 import { Logout } from '@mui/icons-material';
 
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import User from '../User/User';
 
 import { UserUrl } from '@/url/userUrl';
+
+import { useRouter } from 'next/navigation';
 
 import css from './Header.module.css';
 
@@ -58,18 +59,18 @@ export const Header = (): JSX.Element => {
     <Box className={css.header}>
       <User name={name} />
       <Box className={css.headerArea}>
-        <Link href='/home/to_do_list' className={css.link}>
+        <Link href='/home/to_do_list' className={ window.location.pathname == '/home/to_do_list' ? css.activate : css.link } >
           Список дел
         </Link>
-        <Link href='/404' className={css.link}>
+        <Link href='/404' className={ window.location.pathname == '/404' ? css.activate : css.link } >
           О нас :
         </Link>
-        <Link href='/404' className={css.link}>
+        <Link href='/404' className={ window.location.pathname == '/404' ? css.activate : css.link }>
           Наши проекты :
         </Link>
         <ButtonBase onClick={() => {
-          localStorage.removeItem('user_id');
-          localStorage.removeItem('refresh_token');
+          localStorage.setItem('user_id', '');
+          localStorage.setItem('refresh_token', '');
           router.push('/');
         }}>
           <Logout

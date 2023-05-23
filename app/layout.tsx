@@ -7,6 +7,7 @@ import { Provider } from 'react-redux';
 import { Box, IconButton, ThemeProvider, createTheme } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
+
 import { store } from '@/store/store';
 
 import './globals.css';
@@ -49,7 +50,10 @@ export default function App({
   });
 
   return (
-    <html lang="ru">
+    <html lang='ru'>
+      <head>
+        <title>{metadata.title}</title>
+      </head>
       <body>
         <Provider store={store}>
           <Box className={regionClassName}>
@@ -72,7 +76,7 @@ export default function App({
                     ml: 1 
                   }} 
                   onClick={toggleTheme} 
-                  color="inherit"
+                  color='inherit'
                 >
                   {darkMode ? <Brightness7Icon /> : <Brightness4Icon />}
                 </IconButton>

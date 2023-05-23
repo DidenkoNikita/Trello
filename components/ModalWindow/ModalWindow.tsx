@@ -1,10 +1,10 @@
 'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 
-import { Close, Edit } from "@mui/icons-material";
-import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
-import { store } from "@/store/store";
+import { Close, Edit } from '@mui/icons-material';
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+import { store } from '@/store/store';
 
 interface Modal {
   open: boolean;
