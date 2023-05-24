@@ -1,23 +1,25 @@
 import { ThunkAction } from "redux-thunk";
 import { PayloadAction } from "@reduxjs/toolkit";
 
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
+
 import { RooteState } from "../store";
 import { addingABoard } from "../counter/boardSlice";
-import { BoardsUrl } from "@/url/boardsUrl";
 
 interface CreateBoard {
   id: number;
   title: string;
 }
 
-export const addBoard = (id : null, title: string): ThunkAction<
+export const addBoard = (id: number,title: string, router: AppRouterInstance): ThunkAction<
   void,
   RooteState,
   unknown,
   PayloadAction<CreateBoard> 
 > => async (dispatch): Promise<void | unknown> => {
+  const API_URL = process.env.API_URL;
   const user_id: number | string = JSON.parse(localStorage.getItem('user_id') || '')!; 
-  const refreshToken: string = JSON.parse(localStorage.getItem('refresh_token') || '');
+  const refreshToken: string = JSON.parse(localStorage.getItem('refresh_token') || '');  
 
   const headers = {
     'Content-Type': 'application/json',
@@ -25,7 +27,7 @@ export const addBoard = (id : null, title: string): ThunkAction<
   };
 
   try {
-    const response: Response = await fetch(`${BoardsUrl}`, {
+    const response: Response = await fetch(`${API_URL}/boards`, {
       method: 'POST',
       headers,
       body: JSON.stringify({title, user_id})
@@ -39,11 +41,10 @@ export const addBoard = (id : null, title: string): ThunkAction<
     if (response.status === 201) {
       const refreshToken = data;
       localStorage.setItem('refresh_token', JSON.stringify(refreshToken));
-      alert('Попробуй ещё раз');
     }
 
     if (response.status === 401) {
-      window.location.assign('/401');
+      router.push('/401');
     }
   } catch (e) {
     return console.log(e);

@@ -2,8 +2,11 @@
 
 import { useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { Close, Edit } from '@mui/icons-material';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
+
 import { store } from '@/store/store';
 
 interface Modal {
@@ -16,13 +19,15 @@ interface Modal {
 }
 
 export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitle, selectId, request }: Modal): JSX.Element {
-  const [inputValue, setInputValue] = useState<string>('');  
+  const [inputValue, setInputValue] = useState<string>('');    
+
+  const router = useRouter();
   
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
     if(event.key === 'Enter') {
       event.preventDefault();
       if (inputValue.trim() !== '') { 
-        store.dispatch(request(selectId, inputValue));
+        store.dispatch(request(selectId, inputValue, router));
         setInputValue('');
         handleClose();
       }
@@ -69,7 +74,7 @@ export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitl
           }} 
           onClick={() => {
             if (inputValue.trim() !== '') {               
-              store.dispatch(request(selectId, inputValue));
+              store.dispatch(request(selectId, inputValue, router));
               handleClose();
             }
           }}

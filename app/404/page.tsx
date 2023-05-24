@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { ReplyAll } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 
-
 export default function Custom404() {
   const router = useRouter();
   return (

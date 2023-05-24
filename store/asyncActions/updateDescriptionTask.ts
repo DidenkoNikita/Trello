@@ -1,21 +1,23 @@
 import { ThunkAction } from "redux-thunk";
 import { PayloadAction } from "@reduxjs/toolkit";
 
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
+
 import { RooteState } from "../store";
 import { updateDescriptionTask } from "../counter/taskSlice";
-import { UpdateDescriptionTaskUrl } from "@/url/updateDescriptionTaskUrl";
 
 interface Task {
   id: number;
   title: string;
 }
 
-export const descriptionTaskUpdate = (selectId: number | null, description: string): ThunkAction<
+export const descriptionTaskUpdate = (selectId: number | null, description: string, router: AppRouterInstance): ThunkAction<
   void,
   RooteState,
   unknown,
   PayloadAction<Task>
 > => async (dispatch): Promise<void | unknown> => {
+  const API_URL = process.env.API_URL;
   const user_id: number | string = JSON.parse(localStorage.getItem('user_id') || '')!;
   const refreshToken: string = JSON.parse(localStorage.getItem('refresh_token') || '');
   
@@ -25,7 +27,7 @@ export const descriptionTaskUpdate = (selectId: number | null, description: stri
   };
 
   try {
-    const response: Response = await fetch(`${UpdateDescriptionTaskUrl}`, {
+    const response: Response = await fetch(`${API_URL}/update_tasks`, {
       method: 'POST',
       headers,
       body: JSON.stringify({ id: selectId, title: description, user_id })
@@ -40,11 +42,10 @@ export const descriptionTaskUpdate = (selectId: number | null, description: stri
     if (response.status === 201) {
       const refreshToken = data;
       localStorage.setItem('refresh_token', JSON.stringify(refreshToken));
-      alert('Попробуй ещё раз');
     }
 
     if (response.status === 401) {
-      window.location.assign('/401');
+      router.push('/401');
     }
   } catch (e) {
     return console.log(e);

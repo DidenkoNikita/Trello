@@ -5,8 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ReplyAll } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 
-
-export default function Custom404() {
+export default function Custom404():JSX.Element {
   const router = useRouter();
   return (
     <Box
@@ -31,8 +30,8 @@ export default function Custom404() {
       </Box>
       <IconButton 
         onClick={() => {
-          localStorage.setItem('user_id', 'net_aidi');
-          localStorage.setItem('refresh_token', 'net_tokena');
+          localStorage.removeItem('user_id');
+          localStorage.removeItem('refresh_token');
           router.push('/');
         }}
       >

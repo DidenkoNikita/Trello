@@ -8,8 +8,6 @@ import { Box, Button, TextField } from '@mui/material';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { SignupUrl } from '@/url/signupUrl';
-
 import { StartingHeader } from '@/components/StartingHeader/StartingHeader';
 
 import css from './page.module.css';
@@ -36,11 +34,12 @@ export default function RegistrationForm(): JSX.Element {
   });
 
   const handleSubmit = async (values: typeof initialValues, actions: any): Promise<void> => {
+    const apiUrl = process.env.apiUrl;
     const login: string = values.login;
     const fullName: string = values.fullName;
     const password: string = values.password;
     try {
-      const response: Response = await fetch(`${SignupUrl}`, {
+      const response: Response = await fetch(`${apiUrl}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -65,11 +64,12 @@ export default function RegistrationForm(): JSX.Element {
 
   const handleKeyDown = async (values: typeof initialValues, actions: any, event: any): Promise<void> => {
     if (event.key === 'Enter') {
+      const apiUrl = process.env.apiUrl;
       const login: string = values.login;
       const fullName: string = values.fullName;
       const password: string = values.password;
       try {
-        const response: Response = await fetch(`${SignupUrl}`, {
+        const response: Response = await fetch(`${apiUrl}/signup`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -80,7 +80,6 @@ export default function RegistrationForm(): JSX.Element {
         const data = await response.json();
 
         const {id, refreshToken}: Data = data;
-
         
         if (response.status === 200 || response.status === 204) {
           localStorage.setItem('user_id', JSON.stringify(id));

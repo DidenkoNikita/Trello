@@ -2,54 +2,60 @@
 
 import React, { useEffect, useState } from 'react';
 
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
+
 import { Box, ButtonBase } from '@mui/material';
 import { Logout } from '@mui/icons-material';
 
-import Link from 'next/link';
-
 import User from '../User/User';
-
-import { UserUrl } from '@/url/userUrl';
-
-import { useRouter } from 'next/navigation';
 
 import css from './Header.module.css';
 
 export const Header = (): JSX.Element => {
   const [name, setName] = useState<string>('');
-  
+
   const router = useRouter();
+  
+  const patchName = usePathname();  
 
   const userName = async (): Promise<void> => {
-    const user_id = JSON.parse(localStorage.getItem('user_id') || '')!;
-    const refreshToken: string = JSON.parse(localStorage.getItem('refresh_token') || '');
-  
-    const headers = {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${refreshToken}`,
-    };
+    const API_URL = process.env.API_URL;
+    const user_id = localStorage.getItem('user_id');
+    const refreshToken = localStorage.getItem('refresh_token');
 
-    try {
-      const response: Response = await fetch(`${UserUrl}`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({ user_id })
-      });
-
-      const data = await response.json();     
-      if (response.status === 200) {
-        localStorage.setItem('refresh_token', JSON.stringify(data.token))
-        setName(data.name);
+    if (!user_id || !refreshToken) {
+      router.push('/401');
+    } else {
+      const id = JSON.parse(user_id || '');
+      const token = JSON.parse(refreshToken || '');
+      const headers = {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      };
+    
+      try {
+        const response: Response = await fetch(`${API_URL}/user`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ user_id: id })
+        });
+    
+        const data = await response.json();     
+        if (response.status === 200) {
+          localStorage.setItem('refresh_token', JSON.stringify(data.token))
+          setName(data.name);
+        }
+    
+        if (response.status === 201) {
+          const refreshToken = data;
+          localStorage.setItem('refresh_token', JSON.stringify(refreshToken));
+          window.location.reload();
+        }
+      } catch (err) {
+        return console.log(err);
       }
-
-      if (response.status === 201) {
-        const refreshToken = data;
-        localStorage.setItem('refresh_token', JSON.stringify(refreshToken));
-        window.location.reload();
-      }
-    } catch (err) {
-      return console.log(err);
-    }
+    }    
   }
 
   useEffect(() => { userName() }, []);
@@ -59,13 +65,13 @@ export const Header = (): JSX.Element => {
     <Box className={css.header}>
       <User name={name} />
       <Box className={css.headerArea}>
-        <Link href='/home/to_do_list' className={ window.location.pathname == '/home/to_do_list' ? css.activate : css.link } >
+        <Link href='/home/to_do_list' className={ patchName == '/home/to_do_list' ? css.activate : css.link } >
           Список дел
         </Link>
-        <Link href='/404' className={ window.location.pathname == '/404' ? css.activate : css.link } >
+        <Link href='/404' className={ patchName == '/404' ? css.activate : css.link } >
           О нас :
         </Link>
-        <Link href='/404' className={ window.location.pathname == '/404' ? css.activate : css.link }>
+        <Link href='/404' className={ patchName == '/404' ? css.activate : css.link }>
           Наши проекты :
         </Link>
         <ButtonBase onClick={() => {

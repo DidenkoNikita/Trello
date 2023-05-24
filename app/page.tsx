@@ -8,8 +8,6 @@ import { Login, PersonAdd } from '@mui/icons-material';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { LoginUrl } from '@/url/loginUrl';
-
 import { StartingHeader } from '@/components/StartingHeader/StartingHeader';
 
 import css from './page.module.css';
@@ -33,10 +31,11 @@ export default function LoginForm(): JSX.Element {
   });
 
   const handleSubmit = async (values: typeof initialValues, actions: any): Promise<void> => {
+    const API_URL = process.env.API_URL;
     const login: string = values.login;
     const password: string = values.password;
     try {
-      const response: Response = await fetch(`${LoginUrl}`, {
+      const response: Response = await fetch(`${API_URL}/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -61,10 +60,11 @@ export default function LoginForm(): JSX.Element {
 
   const handleKeyDown = async (values: typeof initialValues, actions: any, event: any): Promise<void> => {
     if (event.key === 'Enter') {
+      const API_URL = process.env.API_URL;
       const login: string = values.login;
       const password: string = values.password;
       try {
-        const response: Response = await fetch(`${LoginUrl}`, {
+        const response: Response = await fetch(`${API_URL}/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'

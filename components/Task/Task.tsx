@@ -11,8 +11,10 @@ import { taskRemove } from '../../store/asyncActions/removeTask';
 import { store } from '../../store/store';
 import { descriptionTaskUpdate } from '../../store/asyncActions/updateDescriptionTask';
 
-import css from './Task.module.css';
 import ModalWindow from '../ModalWindow/ModalWindow';
+import { useRouter } from 'next/navigation';
+
+import css from './Task.module.css';
 
 interface Props {
   idBoard: number;
@@ -33,6 +35,8 @@ interface ITasks {
 export default function Task({ idBoard }: Props): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const [selectId, setSelectId] = useState<number | null>(null);
+
+  const router = useRouter();
 
   const dialogTitle: string = 'Введите новое описание';
   const buttonTitle: string = 'Изменить';
@@ -66,7 +70,7 @@ export default function Task({ idBoard }: Props): JSX.Element {
               <Checkbox
                 checked={ completed }
                 onClick={() => {
-                  store.dispatch(completTask(id, completed));
+                  store.dispatch(completTask(id, completed, router));
                 }}
                 sx={{
                   width: '0px',
@@ -108,7 +112,7 @@ export default function Task({ idBoard }: Props): JSX.Element {
                 <ButtonBase
                   className={ css.delete }
                   onClick={() => {
-                    store.dispatch(taskRemove(id))
+                    store.dispatch(taskRemove(id, router))
                   }}
                 >
                   <Clear 

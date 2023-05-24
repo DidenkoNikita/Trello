@@ -1,21 +1,23 @@
 import { ThunkAction } from "redux-thunk";
 import { PayloadAction } from "@reduxjs/toolkit";
 
+import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
+
 import { RooteState } from "../store";
 import { taskComplete } from "../counter/taskSlice";
-import { TaskCompletedUrl } from "@/url/taskCompletedUrl";
 
 interface Complet {
   id: number;
   completed: boolean;
 }
 
-export const completTask = (id: number, completed: boolean): ThunkAction<
+export const completTask = (id: number, completed: boolean, router: AppRouterInstance): ThunkAction<
   void,
   RooteState,
   unknown,
   PayloadAction<Complet>
 > => async (dispatch): Promise<void | unknown> => {
+  const API_URL = process.env.API_URL;
   const ID: number = id;
   const Completed: boolean = completed;
   const user_id: number | string = JSON.parse(localStorage.getItem('user_id') || '')!;
@@ -27,7 +29,7 @@ export const completTask = (id: number, completed: boolean): ThunkAction<
   };
 
   try {
-    const response: Response = await fetch(`${TaskCompletedUrl}`, {
+    const response: Response = await fetch(`${API_URL}/tasks_completed`, {
       method: 'POST',
       headers,
       body: JSON.stringify({ id: ID, completed: Completed, user_id})
@@ -42,11 +44,10 @@ export const completTask = (id: number, completed: boolean): ThunkAction<
     if (response.status === 201) {
       const refreshToken = data;
       localStorage.setItem('refresh_token', JSON.stringify(refreshToken));
-      alert('Попробуй ещё раз');
     }
 
     if (response.status === 401) {
-      window.location.assign('/401');
+      router.push('/401');
     }
   } catch (e) {
     return console.log(e);

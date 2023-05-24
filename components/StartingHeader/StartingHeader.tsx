@@ -2,8 +2,9 @@
 
 import { Box } from '@mui/material';
 
-import css from './StartingHeader.module.css';
 import { Logo } from '../Logo/Logo';
+
+import css from './StartingHeader.module.css';
 
 export const StartingHeader = (): JSX.Element => {
   return (

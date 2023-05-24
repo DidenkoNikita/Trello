@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 
+import { useRouter } from 'next/navigation';
+
 import { Box, Button, ButtonBase, Container, Grid, Paper } from '@mui/material';
 import { Add, Clear, Edit } from '@mui/icons-material';
 
@@ -28,14 +30,17 @@ export default function Board({ filter }: Props): JSX.Element | null {
     const [open, setOpen] = useState<boolean>(false);
     const [openBoard, setOpenBoard] = useState<boolean>(false);
     const [selectId, setSelectId] = useState<number | null>(null);
+
     const dialogTitleEditBoard: string = 'Введите новый заголовок';
     const buttonTitleEditBoard: string = 'Изменить';
     const dialogTitleTask: string = 'Введите описание задачи';
     const buttonTitleTask: string = 'Добавить задачу';
 
+    const router = useRouter();
+
     useEffect(() => {
-        store.dispatch(addAllBoard());
-        store.dispatch(addAllTask());
+        store.dispatch(addAllBoard(router));
+        store.dispatch(addAllTask(router));
     }, []);
 
     if (!filter) {
@@ -125,7 +130,7 @@ export default function Board({ filter }: Props): JSX.Element | null {
                                     </ButtonBase>
                                     <ButtonBase
                                         onClick={() => {
-                                            store.dispatch(boardRemove(id))
+                                            store.dispatch(boardRemove(id, router))
                                         }}
                                         sx={{
                                             display: 'flex',
@@ -151,7 +156,7 @@ export default function Board({ filter }: Props): JSX.Element | null {
                                     }}
                                 >
                                     <Button
-                                        size="small"
+                                        size='small'
                                         variant='contained'
                                         onClick={() => {
                                             handleClickOpen(id);

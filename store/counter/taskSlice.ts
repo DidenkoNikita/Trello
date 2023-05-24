@@ -44,7 +44,6 @@ export const taskSlice = createSlice({
   },
 });
 
-
 export const {
   addingATask,
   addingManyTask,

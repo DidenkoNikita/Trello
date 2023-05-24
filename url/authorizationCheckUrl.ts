@@ -1,1 +1,0 @@
-export const AuthorizationCheckUrl: string = 'http://127.0.0.1:7000/authorization_check';

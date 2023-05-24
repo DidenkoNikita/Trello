@@ -1,18 +1,14 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
-
-import { useRouter } from 'next/navigation';
 
 import { Box } from '@mui/material';
 
 import FilterBoard from '@/components/FilterBoard/FilterBoard';
 import BoardContainer, { Filter } from '@/components/BoardContainer/BoardContainer';
 import { Header } from '@/components/Header/Header';
-
-import { authorizationCheck } from '@/client_service/authorizationCheck';
 
 import css from './page.module.css';
 
@@ -40,10 +36,6 @@ export default function TodoList(): JSX.Element {
   const filter: Filter[] = boards.filter((board: Board) => {
     return board?.title?.toLowerCase().includes(query.toLocaleLowerCase())!;
   }).sort((a: Board, b: Board) => a.id - b.id);
-
-  const router = useRouter();
-
-  useEffect(() => {authorizationCheck(router)});
 
   return (
     <Box className={ css.region }>
