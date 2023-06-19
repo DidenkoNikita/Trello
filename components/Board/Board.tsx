@@ -39,15 +39,15 @@ export default function Board({ filter }: Props): JSX.Element | null {
     const router = useRouter();
 
     useEffect(() => {
-        store.dispatch(addAllBoard(router));
-        store.dispatch(addAllTask(router));
+        store.dispatch(addAllBoard());
+        store.dispatch(addAllTask());
     }, []);
 
     if (!filter) {
         return null;
     }
 
-    const handleClickOpen = (id: number): void => {
+    const handleClickOpen: any = (id: number): void => {
         setSelectId(id)
         setOpen(true);
     }
@@ -87,6 +87,7 @@ export default function Board({ filter }: Props): JSX.Element | null {
                         <Grid
                             item
                             key={id}
+                            data-testid={id}
                         >
                             <Paper
                                 elevation={8}
@@ -96,7 +97,8 @@ export default function Board({ filter }: Props): JSX.Element | null {
                                     display: 'flex',
                                     flexDirection: 'column',
                                     justifyContent: 'space-between',
-                                    alignItems: 'center'
+                                    alignItems: 'center',
+                                    paddingTop: '10px',
                                 }}
                             >
                                 <Box className={css.headerArea}>
@@ -109,6 +111,8 @@ export default function Board({ filter }: Props): JSX.Element | null {
                                         {title}
                                     </div>
                                     <ButtonBase
+                                        id='update_board'
+                                        data-testid='update_board'
                                         onClick={() => {
                                             handleClickOpenBoard(id);
                                         }}
@@ -129,8 +133,10 @@ export default function Board({ filter }: Props): JSX.Element | null {
                                         />
                                     </ButtonBase>
                                     <ButtonBase
+                                        id='remove_board'
+                                        data-testid='remove_board'
                                         onClick={() => {
-                                            store.dispatch(boardRemove(id, router))
+                                            store.dispatch(boardRemove(id))
                                         }}
                                         sx={{
                                             display: 'flex',
@@ -156,6 +162,8 @@ export default function Board({ filter }: Props): JSX.Element | null {
                                     }}
                                 >
                                     <Button
+                                        id='create_task'
+                                        data-testid='create_task'
                                         size='small'
                                         variant='contained'
                                         onClick={() => {

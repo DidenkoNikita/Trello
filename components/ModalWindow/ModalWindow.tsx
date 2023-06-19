@@ -2,8 +2,6 @@
 
 import { useState } from 'react';
 
-import { useRouter } from 'next/navigation';
-
 import { Close, Edit } from '@mui/icons-material';
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from '@mui/material';
 
@@ -11,7 +9,7 @@ import { store } from '@/store/store';
 
 interface Modal {
   open: boolean;
-  handleClose: () => void;
+  handleClose: any;
   dialogTitle: string;
   buttonTitle: string;
   selectId?: number | null;
@@ -19,16 +17,17 @@ interface Modal {
 }
 
 export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitle, selectId, request }: Modal): JSX.Element {
-  const [inputValue, setInputValue] = useState<string>('');    
 
-  const router = useRouter();
+  const [inputValue, setInputValue] = useState<string>('');    
   
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>): void => {
-    if(event.key === 'Enter') {
+    if (event.key === 'Enter') {
       event.preventDefault();
       if (inputValue.trim() !== '') { 
-        store.dispatch(request(selectId, inputValue, router));
+        store.dispatch(request(selectId, inputValue));
         setInputValue('');
+        handleClose();
+      } else {
         handleClose();
       }
     }
@@ -50,7 +49,7 @@ export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitl
           autoFocus={ true }
           size='small'
           onKeyDown={ handleKeyDown }
-          defaultValue=''
+          value={inputValue}
           onChange={(e) => {
               setInputValue(e.target.value);
           }}
@@ -66,6 +65,8 @@ export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitl
         }}
       >
         <Button
+          id='create'
+          data-testid='create-button'
           variant='contained' 
           size='small'
           sx={{
@@ -74,8 +75,11 @@ export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitl
           }} 
           onClick={() => {
             if (inputValue.trim() !== '') {               
-              store.dispatch(request(selectId, inputValue, router));
+              store.dispatch(request(selectId, inputValue));
+              setInputValue('');
               handleClose();
+            } else {
+              handleClose()
             }
           }}
         >
@@ -83,6 +87,8 @@ export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitl
           { buttonTitle }
         </Button>
         <Button
+          id='cansel'
+          data-testid='cancel-button'
           variant='contained' 
           size='small'
           onClick={() => {

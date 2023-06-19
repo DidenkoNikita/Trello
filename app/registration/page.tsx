@@ -29,17 +29,17 @@ export default function RegistrationForm(): JSX.Element {
 
   const validationSchema = Yup.object({
     login: Yup.string().email('Invalid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    password: Yup.string().required('Password is required').min(4, 'Invalid password').matches(/[a-zA-Z]/, 'Password can only contain Latin letters.'),
     fullName: Yup.string().required('Full name is required')
   });
 
   const handleSubmit = async (values: typeof initialValues, actions: any): Promise<void> => {
-    const apiUrl = process.env.apiUrl;
+    const API_URL = process.env.API_URL;
     const login: string = values.login;
     const fullName: string = values.fullName;
     const password: string = values.password;
     try {
-      const response: Response = await fetch(`${apiUrl}/signup`, {
+      const response: Response = await fetch(`${API_URL}/signup`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -56,6 +56,11 @@ export default function RegistrationForm(): JSX.Element {
         router.push('/home/to_do_list');        
         actions.setSubmitting(false);
       }
+
+      if (response.status === 409) {
+        router.push('/401');
+        actions.setSubmitting(false);
+      }
     } catch (error) {
       console.error('Произошла ошибка', error);
       actions.setSubmitting(false);
@@ -64,12 +69,12 @@ export default function RegistrationForm(): JSX.Element {
 
   const handleKeyDown = async (values: typeof initialValues, actions: any, event: any): Promise<void> => {
     if (event.key === 'Enter') {
-      const apiUrl = process.env.apiUrl;
+      const API_URL = process.env.API_URL;
       const login: string = values.login;
       const fullName: string = values.fullName;
       const password: string = values.password;
       try {
-        const response: Response = await fetch(`${apiUrl}/signup`, {
+        const response: Response = await fetch(`${API_URL}/signup`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json'
@@ -85,6 +90,11 @@ export default function RegistrationForm(): JSX.Element {
           localStorage.setItem('user_id', JSON.stringify(id));
           localStorage.setItem('refresh_token', JSON.stringify(refreshToken));
           router.push('/home/to_do_list');
+          actions.setSubmitting(false);
+        }
+
+        if (response.status === 409) {
+          router.push('/401');
           actions.setSubmitting(false);
         }
       } catch (error) {
@@ -117,7 +127,7 @@ export default function RegistrationForm(): JSX.Element {
             <Field 
               type='text'
               name='login'
-              id='login'
+              id='registration'
               placeholder='Email'
               as={TextField} 
               variant='outlined'
@@ -136,7 +146,7 @@ export default function RegistrationForm(): JSX.Element {
             <Field 
               type='text' 
               name='fullName' 
-              id='fullName'
+              id='full_name'
               placeholder='Full name'
               as={TextField} 
               variant='outlined'
@@ -155,7 +165,7 @@ export default function RegistrationForm(): JSX.Element {
             <Field 
               type='password'
               name='password'
-              id='password' 
+              id='registration_password' 
               placeholder='Password'
               as={TextField} 
               variant='outlined'
@@ -168,6 +178,7 @@ export default function RegistrationForm(): JSX.Element {
             />
           </Box>
           <Button 
+            id='button_registration'
             type='submit' 
             variant='contained'
             size='small'
@@ -180,7 +191,7 @@ export default function RegistrationForm(): JSX.Element {
                 paddingRight: '3px'
               }}
             />
-            Регистрация
+            Зарегистрироваться
           </Button>
           <Button 
             variant='contained' 

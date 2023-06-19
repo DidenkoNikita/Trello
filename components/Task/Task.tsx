@@ -43,7 +43,6 @@ export default function Task({ idBoard }: Props): JSX.Element {
 
   const tasks: Tasks[] = useSelector((state: ITasks) =>
     state.tasks.filter((task: Tasks) => idBoard === task?.board_id).sort((a: Tasks, b: Tasks) => a.id - b.id)
-
   );
 
   const handleClickOpen = (id: number): void => {
@@ -68,9 +67,10 @@ export default function Task({ idBoard }: Props): JSX.Element {
               elevation={ 2 }
             >
               <Checkbox
+                data-testid='completed'
                 checked={ completed }
                 onClick={() => {
-                  store.dispatch(completTask(id, completed, router));
+                  store.dispatch(completTask(id, completed));
                 }}
                 sx={{
                   width: '0px',
@@ -89,13 +89,15 @@ export default function Task({ idBoard }: Props): JSX.Element {
                 { title }
               </Box>
                 <ButtonBase
+                  id='update_task'
+                  data-testid='update_task'
                   onClick={() => {
                     handleClickOpen(id);
                   }}
                   sx={{
                     display: 'flex',
-                    width: '0px',
-                    height: '0px',
+                    width: '1px',
+                    height: '1px',
                     alignItems: 'start',
                     justifySelf: 'start',
                     marginRight: '10px'
@@ -110,9 +112,11 @@ export default function Task({ idBoard }: Props): JSX.Element {
                   />   
                 </ButtonBase>
                 <ButtonBase
+                  id='remove_task'
+                  data-testid='remove_task'
                   className={ css.delete }
                   onClick={() => {
-                    store.dispatch(taskRemove(id, router))
+                    store.dispatch(taskRemove(id))
                   }}
                 >
                   <Clear 

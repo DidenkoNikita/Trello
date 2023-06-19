@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ReplyAll } from '@mui/icons-material';
 import { Box, IconButton } from '@mui/material';
 
-export default function Custom404():JSX.Element {
+export default function Custom401():JSX.Element {
   const router = useRouter();
   return (
     <Box
@@ -34,6 +34,7 @@ export default function Custom404():JSX.Element {
           localStorage.removeItem('refresh_token');
           router.push('/');
         }}
+        data-testid='return'
       >
         <ReplyAll />
       </IconButton>

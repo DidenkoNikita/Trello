@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 import { Box, ButtonBase } from '@mui/material';
 import { Logout } from '@mui/icons-material';
@@ -14,11 +14,12 @@ import css from './Header.module.css';
 
 export const Header = (): JSX.Element => {
   const [name, setName] = useState<string>('');
+  const [pathName, setPathName] = useState<string>('');
+
+  useEffect(() => setPathName(location.pathname))
 
   const router = useRouter();
   
-  const patchName = usePathname();  
-
   const userName = async (): Promise<void> => {
     const API_URL = process.env.API_URL;
     const user_id = localStorage.getItem('user_id');
@@ -65,19 +66,32 @@ export const Header = (): JSX.Element => {
     <Box className={css.header}>
       <User name={name} />
       <Box className={css.headerArea}>
-        <Link href='/home/to_do_list' className={ patchName == '/home/to_do_list' ? css.activate : css.link } >
+        <Link 
+          href='/home/to_do_list' 
+          className={ pathName === '/home/to_do_list' ? css.activate : css.link }
+        >
           Список дел
         </Link>
-        <Link href='/404' className={ patchName == '/404' ? css.activate : css.link } >
+        <Link 
+          id='about_us_link'
+          href='/404' 
+          className={ pathName === '/404' ? css.activate : css.link } 
+        >
           О нас :
         </Link>
-        <Link href='/404' className={ patchName == '/404' ? css.activate : css.link }>
+        <Link 
+          id='our_project_link'
+          href='/404' 
+          className={ pathName === '/404' ? css.activate : css.link }
+        >
           Наши проекты :
         </Link>
-        <ButtonBase onClick={() => {
-          localStorage.setItem('user_id', '');
-          localStorage.setItem('refresh_token', '');
-          router.push('/');
+        <ButtonBase 
+          id='logout'
+          onClick={() => {
+            localStorage.setItem('user_id', '');
+            localStorage.setItem('refresh_token', '');
+            router.push('/');
         }}>
           <Logout
             sx={{

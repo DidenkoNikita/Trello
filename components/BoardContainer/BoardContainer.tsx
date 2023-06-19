@@ -38,6 +38,7 @@ export default function BoardContainer({ filter }: Props): JSX.Element {
     return (
         <Box className={css.area}>
             <Button
+                id='create_board'
                 size='small'
                 sx={{
                     marginTop: '10px',

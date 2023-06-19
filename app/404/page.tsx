@@ -28,7 +28,11 @@ export default function Custom404() {
       >
         404 - Page Not Found
       </Box>
-      <IconButton onClick={router.back}>
+      <IconButton 
+        id='come_back'
+        onClick={router.back}
+        data-testid='return'
+      >
         <ReplyAll />
       </IconButton>
     </Box>

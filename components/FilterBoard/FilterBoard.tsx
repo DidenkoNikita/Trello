@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 
 import { Button, TextField } from '@mui/material';
@@ -23,9 +21,10 @@ export default function FilterBoard({ search, setSearch, handleSubmit }: FilterB
       <TextField 
         type='search' 
         name='search' 
-        id='filled-basic' 
+        id='filter_form' 
         label='Поиск досок'
         variant='outlined' 
+        placeholder='Поиск досок'
         size='small'
         onChange = {(event) => {
           setSearch(event.target.value)
@@ -37,6 +36,7 @@ export default function FilterBoard({ search, setSearch, handleSubmit }: FilterB
         }}
       />
       <Button 
+        id='filter_button'
         type='submit'
         variant='contained' 
         size='small'

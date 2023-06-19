@@ -27,7 +27,7 @@ export default function LoginForm(): JSX.Element {
 
   const validationSchema = Yup.object({
     login: Yup.string().email('Invalid email address').required('Email is required'),
-    password: Yup.string().required('Password is required'),
+    password: Yup.string().required('Password is required').min(4, 'Invalid password').matches(/[a-zA-Z-0-9]/, 'Password can only contain Latin letters.'),
   });
 
   const handleSubmit = async (values: typeof initialValues, actions: any): Promise<void> => {
@@ -46,14 +46,17 @@ export default function LoginForm(): JSX.Element {
 
       const {id, refreshToken}: Data = data;
 
+      console.log(data);
+      
+
       if (response.status === 200) {
         localStorage.setItem('user_id', JSON.stringify(id));
         localStorage.setItem('refresh_token', JSON.stringify(refreshToken));        
         router.push('/home/to_do_list');
         actions.setSubmitting(false);
       }
-    } catch (error) {
-      console.error('Произошла ошибка', error);
+    } catch (e) {
+      console.log('Произошла ошибка', e);
       actions.setSubmitting(false);
     }
   };
@@ -81,8 +84,8 @@ export default function LoginForm(): JSX.Element {
           router.push('/home/to_do_list');
           actions.setSubmitting(false);
         }
-      } catch (error) {
-        console.error('Произошла ошибка', error);
+      } catch (e) {
+        console.log('Произошла ошибка', e);
         actions.setSubmitting(false);
       }
     }
@@ -143,6 +146,7 @@ export default function LoginForm(): JSX.Element {
             />
           </Box>
           <Button 
+            id='button_login'
             type='submit' 
             variant='contained' 
             size='small' 
@@ -154,6 +158,7 @@ export default function LoginForm(): JSX.Element {
             Войти
           </Button>
           <Button 
+            id='registration_button'
             variant='contained' 
             size='small'
             onClick={() => router.push('/registration')}
