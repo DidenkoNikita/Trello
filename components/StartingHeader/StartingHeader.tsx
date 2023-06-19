@@ -8,7 +8,7 @@ import css from './StartingHeader.module.css';
 
 export const StartingHeader = (): JSX.Element => {
   return (
-    <Box className={ css.header }>
+    <Box className={css.header}>
         <Logo />
     </Box>
   )

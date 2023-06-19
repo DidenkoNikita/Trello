@@ -45,10 +45,7 @@ export default function LoginForm(): JSX.Element {
       const data = await response.json();
 
       const {id, refreshToken}: Data = data;
-
-      console.log(data);
       
-
       if (response.status === 200) {
         localStorage.setItem('user_id', JSON.stringify(id));
         localStorage.setItem('refresh_token', JSON.stringify(refreshToken));        
@@ -56,8 +53,8 @@ export default function LoginForm(): JSX.Element {
         actions.setSubmitting(false);
       }
     } catch (e) {
-      console.log('Произошла ошибка', e);
       actions.setSubmitting(false);
+      return console.log('An error has occurred', e);
     }
   };
 
@@ -85,8 +82,8 @@ export default function LoginForm(): JSX.Element {
           actions.setSubmitting(false);
         }
       } catch (e) {
-        console.log('Произошла ошибка', e);
         actions.setSubmitting(false);
+        return console.log('An error has occurred', e);
       }
     }
   };
@@ -108,7 +105,7 @@ export default function LoginForm(): JSX.Element {
               fontWeight: 'bold'
             }}
           >
-            Вход
+            Log in
           </Box>
           <Box>
             <Field 
@@ -155,7 +152,7 @@ export default function LoginForm(): JSX.Element {
             }}
           >
             <Login sx={{ paddingRight: '3px' }} />
-            Войти
+            Log in
           </Button>
           <Button 
             id='registration_button'
@@ -168,7 +165,7 @@ export default function LoginForm(): JSX.Element {
                 paddingRight: '3px'
               }}
             />
-            Регистрация
+            Sign up
           </Button>
         </Form>
       </Formik>

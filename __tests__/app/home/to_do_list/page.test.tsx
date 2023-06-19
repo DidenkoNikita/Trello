@@ -1,7 +1,9 @@
 import { Provider } from "react-redux";
-import TodoList from "../../../../app/home/to_do_list/page";
 import { render } from "@testing-library/react";
+
 import { store } from "@/store/store";
+
+import TodoList from "../../../../app/home/to_do_list/page";
 
 jest.mock('next/navigation', () => require('next-router-mock'));
 jest.mock('jest-fetch-mock');

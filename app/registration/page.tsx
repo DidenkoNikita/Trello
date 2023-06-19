@@ -62,8 +62,8 @@ export default function RegistrationForm(): JSX.Element {
         actions.setSubmitting(false);
       }
     } catch (error) {
-      console.error('Произошла ошибка', error);
       actions.setSubmitting(false);
+      return console.log('An error has occurred', error);
     }
   };
 
@@ -98,8 +98,8 @@ export default function RegistrationForm(): JSX.Element {
           actions.setSubmitting(false);
         }
       } catch (error) {
-        console.error('Произошла ошибка', error);
         actions.setSubmitting(false);
+        return console.log('An error has occurred', error);
       }
     }
   };
@@ -108,12 +108,12 @@ export default function RegistrationForm(): JSX.Element {
     <Box>
       <StartingHeader />
       <Formik 
-        initialValues={ initialValues } 
-        validationSchema={ validationSchema } 
-        onSubmit={ handleSubmit }
-        onKeyDown={ handleKeyDown }
+        initialValues={initialValues} 
+        validationSchema={validationSchema} 
+        onSubmit={handleSubmit}
+        onKeyDown={handleKeyDown}
       >
-        <Form className={ css.form } >
+        <Form className={css.form}>
           <Box
             sx={{
               color: 'text.primary',
@@ -121,7 +121,7 @@ export default function RegistrationForm(): JSX.Element {
               fontWeight: 'bold'
             }}
           >
-            Регистрация
+            Registration
           </Box>
           <Box>
             <Field 
@@ -174,7 +174,7 @@ export default function RegistrationForm(): JSX.Element {
             <ErrorMessage 
               name='password'
               component='div'
-              className={ css.error2 } 
+              className={css.error2} 
             />
           </Box>
           <Button 
@@ -191,7 +191,7 @@ export default function RegistrationForm(): JSX.Element {
                 paddingRight: '3px'
               }}
             />
-            Зарегистрироваться
+            Sign up
           </Button>
           <Button 
             variant='contained' 
@@ -200,8 +200,8 @@ export default function RegistrationForm(): JSX.Element {
               router.push('/');
             }}
           >
-            <Login sx={{ paddingRight: '3px' }} />
-            Войти
+            <Login sx={{paddingRight: '3px'}} />
+            Log in
           </Button>
         </Form>
       </Formik>

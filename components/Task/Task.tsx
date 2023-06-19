@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useSelector } from 'react-redux';
 
 import { Box, ButtonBase, Checkbox, Paper } from '@mui/material';
@@ -12,7 +12,6 @@ import { store } from '../../store/store';
 import { descriptionTaskUpdate } from '../../store/asyncActions/updateDescriptionTask';
 
 import ModalWindow from '../ModalWindow/ModalWindow';
-import { useRouter } from 'next/navigation';
 
 import css from './Task.module.css';
 
@@ -32,14 +31,12 @@ interface ITasks {
   tasks: Tasks;
 }
 
-export default function Task({ idBoard }: Props): JSX.Element {
+export default function Task({idBoard}: Props): JSX.Element {
   const [open, setOpen] = useState<boolean>(false);
   const [selectId, setSelectId] = useState<number | null>(null);
 
-  const router = useRouter();
-
-  const dialogTitle: string = 'Введите новое описание';
-  const buttonTitle: string = 'Изменить';
+  const dialogTitle: string = 'Enter a new description';
+  const buttonTitle: string = 'Change';
 
   const tasks: Tasks[] = useSelector((state: ITasks) =>
     state.tasks.filter((task: Tasks) => idBoard === task?.board_id).sort((a: Tasks, b: Tasks) => a.id - b.id)
@@ -54,21 +51,25 @@ export default function Task({ idBoard }: Props): JSX.Element {
     setOpen(!open);
   }
 
+  const useHandleCloseTask = useCallback(() => {
+    handleCloseTask();
+  }, [handleCloseTask]);
+
   return (
     <Box 
-      className={ css.taskArea }
+      className={css.taskArea}
     >
       {Array.isArray(tasks) &&
-        tasks.map(({ id, completed, title }: Tasks) => {
+        tasks.map(({id, completed, title}: Tasks) => {
           return (
             <Paper 
-              className={ css.task } 
-              key={ id } 
-              elevation={ 2 }
+              className={css.task} 
+              key={id} 
+              elevation={2}
             >
               <Checkbox
                 data-testid='completed'
-                checked={ completed }
+                checked={completed}
                 onClick={() => {
                   store.dispatch(completTask(id, completed));
                 }}
@@ -78,7 +79,7 @@ export default function Task({ idBoard }: Props): JSX.Element {
                 }}
               />
               <Box 
-                className={ !completed ? css.notCompleted : css.done }
+                className={!completed ? css.notCompleted : css.done}
                 onDoubleClick={() => {
                   handleClickOpen(id);
                 }}
@@ -86,7 +87,7 @@ export default function Task({ idBoard }: Props): JSX.Element {
                   color: 'text.primary',
                 }}
               >
-                { title }
+                {title}
               </Box>
                 <ButtonBase
                   id='update_task'
@@ -114,7 +115,7 @@ export default function Task({ idBoard }: Props): JSX.Element {
                 <ButtonBase
                   id='remove_task'
                   data-testid='remove_task'
-                  className={ css.delete }
+                  className={css.delete}
                   onClick={() => {
                     store.dispatch(taskRemove(id))
                   }}
@@ -129,12 +130,12 @@ export default function Task({ idBoard }: Props): JSX.Element {
           );
         })}
         <ModalWindow
-          open={ open }  
-          handleClose={ handleCloseTask } 
-          dialogTitle={ dialogTitle } 
-          buttonTitle={ buttonTitle } 
-          selectId={ selectId } 
-          request={ descriptionTaskUpdate }
+          open={open}  
+          handleClose={useHandleCloseTask} 
+          dialogTitle={dialogTitle} 
+          buttonTitle={buttonTitle} 
+          selectId={selectId} 
+          request={descriptionTaskUpdate}
         />
     </Box>
   );

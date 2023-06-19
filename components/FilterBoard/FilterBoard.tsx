@@ -22,9 +22,9 @@ export default function FilterBoard({ search, setSearch, handleSubmit }: FilterB
         type='search' 
         name='search' 
         id='filter_form' 
-        label='Поиск досок'
+        label='Board search'
         variant='outlined' 
-        placeholder='Поиск досок'
+        placeholder='Board search'
         size='small'
         onChange = {(event) => {
           setSearch(event.target.value)
@@ -45,7 +45,7 @@ export default function FilterBoard({ search, setSearch, handleSubmit }: FilterB
         }}
       >
         <Search />
-        Поиск
+        Search
       </Button>
     </form>
   );

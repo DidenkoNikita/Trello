@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 
-import css from './Logo.module.css'
+import css from './Logo.module.css';
 
 export const Logo = (): JSX.Element => {
   return (

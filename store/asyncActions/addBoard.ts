@@ -17,9 +17,7 @@ export const addBoard = (id: number,title: string): ThunkAction<
 > => async (dispatch): Promise<void> => {
   try {
     const data = await request('boards', {id, title}, 'POST');
-    if (data === null) {
-      console.log('иди отсюда');
-    } else {
+    if (data !== null) {
       dispatch(addingABoard(data.board));
     }
   } catch(e) {

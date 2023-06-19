@@ -17,9 +17,7 @@ export const boardRemove = (id: number): ThunkAction<
 > => async (dispatch): Promise<void> => {
   try {
     const data = await request('boards', {id}, 'DELETE');
-    if (data === null) {
-      console.log('иди отсюда');
-    } else {
+    if (data !== null) {
       dispatch(removeBoard(data));
     }
   } catch(e) {

@@ -18,9 +18,7 @@ export const titleBoardUpdate = (id: number, title: string): ThunkAction<
 > => async (dispatch): Promise<void> => {
   try {
     const data = await request('update_boards', {id, title}, 'POST');
-    if (data === null) {
-      console.log('иди отсюда');
-    } else {
+    if (data !== null) {
       dispatch(updateTitleBoard(data.board));
     }
   } catch(e) {

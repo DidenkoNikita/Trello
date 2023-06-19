@@ -16,7 +16,7 @@ interface Modal {
   request: any;
 }
 
-export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitle, selectId, request }: Modal): JSX.Element {
+export default function ModalWindow({open, dialogTitle, handleClose, buttonTitle, selectId, request}: Modal): JSX.Element {
 
   const [inputValue, setInputValue] = useState<string>('');    
   
@@ -35,10 +35,10 @@ export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitl
 
   return (
     <Dialog
-      open={ open }
-      onClose={ handleClose }
+      open={open}
+      onClose={handleClose}
     >
-      <DialogTitle>{ dialogTitle }</DialogTitle>
+      <DialogTitle>{dialogTitle}</DialogTitle>
       <DialogContent>
         <TextField 
           name='modal-input'
@@ -46,9 +46,9 @@ export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitl
           id='outlined-basic' 
           label='Title' 
           variant='outlined' 
-          autoFocus={ true }
+          autoFocus={true}
           size='small'
-          onKeyDown={ handleKeyDown }
+          onKeyDown={handleKeyDown}
           value={inputValue}
           onChange={(e) => {
               setInputValue(e.target.value);
@@ -84,7 +84,7 @@ export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitl
           }}
         >
           <Edit />
-          { buttonTitle }
+          {buttonTitle}
         </Button>
         <Button
           id='cansel'
@@ -96,7 +96,7 @@ export default function ModalWindow({ open, dialogTitle, handleClose, buttonTitl
           }}
         >
           <Close />   
-          Отмена
+          Cancel
         </Button>
       </DialogActions>
     </Dialog>

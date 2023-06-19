@@ -1,7 +1,7 @@
-import { Header } from "../../../components/Header/Header";
 import { fireEvent, render, screen } from "@testing-library/react";
-
 import { expect } from '@jest/globals'
+
+import { Header } from "../../../components/Header/Header";
 
 jest.mock('next/navigation', () => require('next-router-mock'));
 
@@ -11,11 +11,11 @@ describe('Header component', () => {
   it('Should render properly', () => {
     render(<Header />);
 
-    const linkOurProject = screen.getByText('Наши проекты :');
+    const linkOurProject = screen.getByText('Our projects');
 
-    const linkAboutUse = screen.getByText('О нас :');
+    const linkAboutUse = screen.getByText('About Us');
 
-    const linkToDoList = screen.getByText('Список дел');
+    const linkToDoList = screen.getByText('To-do list');
 
     const mockFetch = jest.fn().mockResolvedValue({
       status: 200,

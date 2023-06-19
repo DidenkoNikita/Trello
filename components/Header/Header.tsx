@@ -61,30 +61,29 @@ export const Header = (): JSX.Element => {
 
   useEffect(() => { userName() }, []);
   
-
   return (
     <Box className={css.header}>
       <User name={name} />
       <Box className={css.headerArea}>
         <Link 
           href='/home/to_do_list' 
-          className={ pathName === '/home/to_do_list' ? css.activate : css.link }
+          className={pathName === '/home/to_do_list' ? css.activate : css.link}
         >
-          Список дел
+          To-do list
         </Link>
         <Link 
           id='about_us_link'
           href='/404' 
-          className={ pathName === '/404' ? css.activate : css.link } 
+          className={pathName === '/404' ? css.activate : css.link} 
         >
-          О нас :
+          About Us
         </Link>
         <Link 
           id='our_project_link'
           href='/404' 
-          className={ pathName === '/404' ? css.activate : css.link }
+          className={pathName === '/404' ? css.activate : css.link}
         >
-          Наши проекты :
+          Our projects
         </Link>
         <ButtonBase 
           id='logout'

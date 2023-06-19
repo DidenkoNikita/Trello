@@ -1,7 +1,9 @@
-import BoardContainer from "@/components/BoardContainer/BoardContainer";
-import { store } from "@/store/store";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { Provider } from "react-redux";
+
+import { store } from "@/store/store";
+
+import BoardContainer from "@/components/BoardContainer/BoardContainer";
 
 interface Filter {
   id: number;
@@ -26,7 +28,7 @@ describe('Board Container component', () => {
       </Provider>
     );
 
-    const button = screen.getByText('Добавить доску');
+    const button = screen.getByText('Add board');
     
     fireEvent.click(button);
   })

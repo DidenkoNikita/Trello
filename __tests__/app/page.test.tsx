@@ -1,10 +1,8 @@
 import React from 'react';
-
 import { act } from 'react-dom/test-utils';
-
 import {expect} from '@jest/globals'
-
 import { render, fireEvent, screen } from '@testing-library/react';
+
 import LoginForm from '../../app/page';
 
 jest.mock('next/navigation', () => require('next-router-mock'));
@@ -17,7 +15,7 @@ describe('LoginForm', () => {
 
     const loginInput = screen.getByPlaceholderText('Email');
     const passwordInput = screen.getByPlaceholderText('Password');
-    const submitButton = screen.getByText('Войти');
+    const submitButton = screen.getByText('Log in');
 
     const mockFetch = jest.fn().mockResolvedValue({
       status: 200,
@@ -46,15 +44,12 @@ describe('LoginForm', () => {
         const data = await response.json();
   
         const {id, refreshToken} = data;
-
-        console.log(data);
-        
   
         expect(id).toBe(4);
         expect(refreshToken).not.toBeUndefined();
         
       } catch (e) {
-        console.log('Произошла ошибка', e);
+        return console.log('An error has occurred', e);
       }
     };
     await handleSubmit();

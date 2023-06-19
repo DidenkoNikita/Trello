@@ -1,10 +1,11 @@
-import FilterBoard from "@/components/FilterBoard/FilterBoard"
-import { fireEvent, render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
+
+import FilterBoard from "@/components/FilterBoard/FilterBoard";
 
 describe('Filter Board component', () => {
   it('Should render properly', async () => {
-    let search: string = '' 
+    let search: string = '' ;
 
     const setSearch = (value: any): string  => {
       return search = value;
@@ -13,6 +14,7 @@ describe('Filter Board component', () => {
     const handleSubmit = (event: any) => {
       event.preventDefault();
     }
+
     render(
       <FilterBoard 
         search={ search } 
@@ -21,8 +23,8 @@ describe('Filter Board component', () => {
       />
     )
 
-    const inputFilterBoard = screen.getByPlaceholderText('Поиск досок');
-    const buttonFilterBoard = screen.getByText('Поиск');
+    const inputFilterBoard = screen.getByPlaceholderText('Search board');
+    const buttonFilterBoard = screen.getByText('Search');
 
     await act(async () => {
       fireEvent.change(inputFilterBoard, { target: { value: 'Board' } });

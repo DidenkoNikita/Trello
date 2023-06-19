@@ -16,9 +16,7 @@ export const taskRemove = (id: number): ThunkAction<
 > => async (dispatch): Promise<void> => {
   try {
     const data = await request('tasks', {id}, 'DELETE');    
-    if (data === null) {
-      console.log('иди отсюда');
-    } else {
+    if (data !== null) {
       dispatch(removeTask(data.task));
     }
   } catch(e) {

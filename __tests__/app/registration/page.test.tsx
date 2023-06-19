@@ -1,16 +1,12 @@
 import React from 'react';
 import { test } from '@jest/globals';
-
 import { act } from 'react-dom/test-utils';
-
 import {expect} from '@jest/globals'
-
 import { render, fireEvent, screen } from '@testing-library/react';
 
 import RegistrationForm from '../../../app/registration/page';
 
 jest.mock('next/navigation', () => require('next-router-mock'));
-
 
 jest.mock('jest-fetch-mock');
 
@@ -21,7 +17,7 @@ describe('Regiastration form', () => {
     const loginInput = screen.getByPlaceholderText('Email');
     const fullNameInput = screen.getByPlaceholderText('Full name');
     const passwordInput = screen.getByPlaceholderText('Password');
-    const submitButton = screen.getByText('Зарегистрироваться');
+    const submitButton = screen.getByText('Sign up');
 
     const mockFetch = jest.fn().mockResolvedValue({
       status: 200,
@@ -31,14 +27,9 @@ describe('Regiastration form', () => {
     global.fetch = mockFetch;
 
     await act(async () => {
-      fireEvent.change(loginInput, { target: { value: 'dick@gmail.com' } });
-
+      fireEvent.change(loginInput, { target: { value: 'boy@gmail.com' } });
       fireEvent.change(fullNameInput, { target: { value: 'Dick' } })
-
       fireEvent.change(passwordInput, { target: { value: '1234' } });
-
-
-
       fireEvent.click(submitButton);
     });
 
@@ -50,20 +41,17 @@ describe('Regiastration form', () => {
           headers: {
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ login: 'dick@gmail.com', fullName: 'Dick',  password: '1234' })
+          body: JSON.stringify({ login: 'boy@gmail.com', fullName: 'boy',  password: '1234' })
         });
         const data = await response.json();
   
-        const {id, refreshToken} = data;
-
-        console.log(data);
-        
+        const {id, refreshToken} = data;        
   
         expect(id).toBe(16);
         expect(refreshToken).not.toBeUndefined()
         
       } catch (e) {
-        console.log('Произошла ошибка', e);
+        return console.log('An error has occurred', e);
       }
     };
     await handleSubmit();

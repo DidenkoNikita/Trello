@@ -1,10 +1,11 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import { Provider } from 'react-redux';
-import { store } from '@/store/store';
-
 import { expect, jest } from '@jest/globals'
-import ModalWindow from '@/components/ModalWindow/ModalWindow';
+
+import { store } from '@/store/store';
 import { addTask } from '@/store/asyncActions/addTask';
+
+import ModalWindow from '@/components/ModalWindow/ModalWindow';
 
 const handleClose = () => {};
 

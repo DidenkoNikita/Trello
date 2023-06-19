@@ -19,9 +19,7 @@ export const addTask = (id: number | null, description: string): ThunkAction<
 > => async (dispatch): Promise<void> => {
   try {
     const data = await request('tasks', {id, description}, 'POST');
-    if (data === null) {
-      console.log('иди отсюда');
-    } else {
+    if (data !== null) {
       dispatch(addingATask(data.task));
     }
   } catch(e) {
