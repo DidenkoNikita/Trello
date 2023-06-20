@@ -17,7 +17,7 @@ export const completTask = (id: number, completed: boolean): ThunkAction<
 > => async (dispatch): Promise<void> => {
   try {
     const data = await request('tasks_completed', {id, completed}, 'POST');
-    if (data === null) {
+    if (data !== null) {      
       dispatch(taskComplete(data.task));
     }
   } catch(e) {
