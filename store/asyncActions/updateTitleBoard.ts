@@ -7,7 +7,7 @@ import { request } from "@/request/request";
 
 interface Board {
   id: number;
-  title: string
+  title: string;
 }
 
 export const titleBoardUpdate = (id: number, title: string): ThunkAction<

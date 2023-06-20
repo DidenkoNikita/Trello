@@ -1,8 +1,6 @@
 import { ThunkAction } from "redux-thunk";
 import { PayloadAction } from "@reduxjs/toolkit";
 
-import { AppRouterInstance } from "next/dist/shared/lib/app-router-context";
-
 import { RooteState } from "../store";
 import { updateDescriptionTask } from "../counter/taskSlice";
 import { request } from "@/request/request";

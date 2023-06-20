@@ -28,7 +28,6 @@ describe('Filter Board component', () => {
 
     await act(async () => {
       fireEvent.change(inputFilterBoard, { target: { value: 'Board' } });
-
       fireEvent.click(buttonFilterBoard);
     });
   })

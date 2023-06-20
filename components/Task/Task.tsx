@@ -52,9 +52,7 @@ export default function Task({idBoard}: Props): JSX.Element {
   }, [open]);
 
   return (
-    <Box 
-      className={css.taskArea}
-    >
+    <Box className={css.taskArea}>
       {Array.isArray(tasks) &&
         tasks.map(({id, completed, title}: Tasks) => {
           return (
@@ -113,7 +111,7 @@ export default function Task({idBoard}: Props): JSX.Element {
                   data-testid='remove_task'
                   className={css.delete}
                   onClick={() => {
-                    store.dispatch(taskRemove(id))
+                    store.dispatch(taskRemove(id));
                   }}
                 >
                   <Clear 
@@ -125,14 +123,14 @@ export default function Task({idBoard}: Props): JSX.Element {
             </Paper>
           );
         })}
-        <ModalWindow
-          open={open}  
-          handleClose={handleCloseTask} 
-          dialogTitle={dialogTitle} 
-          buttonTitle={buttonTitle} 
-          selectId={selectId} 
-          request={descriptionTaskUpdate}
-        />
+      <ModalWindow
+        open={open}  
+        handleClose={handleCloseTask} 
+        dialogTitle={dialogTitle} 
+        buttonTitle={buttonTitle} 
+        selectId={selectId} 
+        request={descriptionTaskUpdate}
+      />
     </Box>
   );
 };

@@ -38,14 +38,14 @@ export default function TodoList(): JSX.Element {
   }).sort((a: Board, b: Board) => a.id - b.id);
 
   return (
-    <Box className={ css.region }>
+    <Box className={css.region}>
       <Header />
       <FilterBoard 
-        search={ search } 
-        setSearch={ setSearch } 
-        handleSubmit={ handleSubmit } 
+        search={search} 
+        setSearch={setSearch} 
+        handleSubmit={handleSubmit} 
       />
-      <BoardContainer filter={ filter } />
+      <BoardContainer filter={filter} />
     </Box>
   );
 };

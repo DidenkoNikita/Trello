@@ -1,7 +1,7 @@
 import React from 'react';
 import { test } from '@jest/globals';
 import { act } from 'react-dom/test-utils';
-import {expect} from '@jest/globals'
+import {expect} from '@jest/globals';
 import { render, fireEvent, screen } from '@testing-library/react';
 
 import RegistrationForm from '../../../app/registration/page';
@@ -21,14 +21,14 @@ describe('Regiastration form', () => {
 
     const mockFetch = jest.fn().mockResolvedValue({
       status: 200,
-      json: jest.fn().mockResolvedValue({ id: 16, refreshToken: 'token' }),
+      json: jest.fn().mockResolvedValue({ id: 16, refreshToken: 'token' })
     });
 
     global.fetch = mockFetch;
 
     await act(async () => {
       fireEvent.change(loginInput, { target: { value: 'boy@gmail.com' } });
-      fireEvent.change(fullNameInput, { target: { value: 'Dick' } })
+      fireEvent.change(fullNameInput, { target: { value: 'Dick' } });
       fireEvent.change(passwordInput, { target: { value: '1234' } });
       fireEvent.click(submitButton);
     });
@@ -48,7 +48,7 @@ describe('Regiastration form', () => {
         const {id, refreshToken} = data;        
   
         expect(id).toBe(16);
-        expect(refreshToken).not.toBeUndefined()
+        expect(refreshToken).not.toBeUndefined();
         
       } catch (e) {
         return console.log('An error has occurred', e);

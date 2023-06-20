@@ -44,16 +44,16 @@ export default function Board({filter}: Props): JSX.Element | null {
   }
 
   const handleClickOpen: any = (id: number): void => {
-    setSelectId(id)
+    setSelectId(id);
     setOpen(true);
   }
 
   const handleClose = useCallback(() => {
-    setOpen(false)
+    setOpen(false);
   }, [open]);
 
   const handleClickOpenBoard = (id: number): void => {
-    setSelectId(id)
+    setSelectId(id);
     setOpenBoard(true);
   }
 

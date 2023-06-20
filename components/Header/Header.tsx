@@ -16,7 +16,7 @@ export const Header = (): JSX.Element => {
   const [name, setName] = useState<string>('');
   const [pathName, setPathName] = useState<string>('');
 
-  useEffect(() => setPathName(location.pathname))
+  useEffect(() => setPathName(location.pathname));
 
   const router = useRouter();
   
@@ -44,7 +44,7 @@ export const Header = (): JSX.Element => {
     
         const data = await response.json();     
         if (response.status === 200) {
-          localStorage.setItem('refresh_token', JSON.stringify(data.token))
+          localStorage.setItem('refresh_token', JSON.stringify(data.token));
           setName(data.name);
         }
     
@@ -99,6 +99,6 @@ export const Header = (): JSX.Element => {
           />
         </ButtonBase>
       </Box>
-  </Box>
+    </Box>
   );
 };

@@ -22,12 +22,12 @@ export const boardSlice = createSlice({
         }
       });
     },
-    removeBoard: (state, action: PayloadAction<{ id: number }>): Board[] => {
+    removeBoard: (state, action: PayloadAction<{id: number}>): Board[] => {
       const { payload } = action;
       state = state.filter((board) => board.id !== payload.id);
       return state;
     },
-    updateTitleBoard: (state, action: PayloadAction<{ id: number, title: string }>): Board[] => {
+    updateTitleBoard: (state, action: PayloadAction<{id: number, title: string}>): Board[] => {
       const { payload } = action;
       state = state.map((board) => (board.id === payload.id ? { ...board, title: payload.title } : board));
       state.sort((a, b) => a.id - b.id);

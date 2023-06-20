@@ -151,7 +151,11 @@ export default function LoginForm(): JSX.Element {
               margin: '10px 0' 
             }}
           >
-            <Login sx={{ paddingRight: '3px' }} />
+            <Login 
+              sx={{ 
+                paddingRight: '3px' 
+              }} 
+            />
             Log in
           </Button>
           <Button 

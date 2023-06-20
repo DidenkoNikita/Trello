@@ -11,12 +11,12 @@ interface FilterBoardProps {
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
 }
 
-export default function FilterBoard({ search, setSearch, handleSubmit }: FilterBoardProps): JSX.Element {
+export default function FilterBoard({search, setSearch, handleSubmit}: FilterBoardProps): JSX.Element {
   return (
     <form 
       autoComplete='off' 
-      onSubmit={ handleSubmit } 
-      className={ css.filter } 
+      onSubmit={handleSubmit} 
+      className={css.filter} 
     >
       <TextField 
         type='search' 

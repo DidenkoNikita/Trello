@@ -33,7 +33,7 @@ export const request = async (patch: string, info: {}, method: string) => {
       }
   
       if (response.status === 401) {
-        window.open('http://localhost:3000/401')
+        window.open('http://localhost:3000/401');
       }
 
     } catch (e) {

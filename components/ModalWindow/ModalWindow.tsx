@@ -79,7 +79,7 @@ export default function ModalWindow({open, dialogTitle, handleClose, buttonTitle
               setInputValue('');
               handleClose();
             } else {
-              handleClose()
+              handleClose();
             }
           }}
         >

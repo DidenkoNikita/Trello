@@ -1,6 +1,6 @@
 import React from 'react';
 import { act } from 'react-dom/test-utils';
-import {expect} from '@jest/globals'
+import {expect} from '@jest/globals';
 import { render, fireEvent, screen } from '@testing-library/react';
 
 import LoginForm from '../../app/page';
