@@ -47,13 +47,9 @@ export default function Task({idBoard}: Props): JSX.Element {
     setOpen(true);    
   }
 
-  const handleCloseTask = (): void => {
+  const handleCloseTask = useCallback(() => {
     setOpen(!open);
-  }
-
-  const useHandleCloseTask = useCallback(() => {
-    handleCloseTask();
-  }, [handleCloseTask]);
+  }, [open]);
 
   return (
     <Box 
@@ -131,7 +127,7 @@ export default function Task({idBoard}: Props): JSX.Element {
         })}
         <ModalWindow
           open={open}  
-          handleClose={useHandleCloseTask} 
+          handleClose={handleCloseTask} 
           dialogTitle={dialogTitle} 
           buttonTitle={buttonTitle} 
           selectId={selectId} 

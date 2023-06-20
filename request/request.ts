@@ -22,7 +22,7 @@ export const request = async (patch: string, info: {}, method: string) => {
         body: JSON.stringify({user_id: id, ...info})
       });
       const data = await response.json();       
-      if(response.status === 200) {
+      if(response.status === 200) {                
         localStorage.setItem('refresh_token', JSON.stringify(data.token));
         return data;
       }
@@ -35,7 +35,6 @@ export const request = async (patch: string, info: {}, method: string) => {
       if (response.status === 401) {
         window.open('http://localhost:3000/401')
       }
-  
     } catch (e) {
       return console.log(e);
     }

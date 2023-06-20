@@ -17,7 +17,7 @@ export const addAllBoard = (): ThunkAction<
 > => async (dispatch): Promise<void | unknown> => {
   try {
     const data = await request('read_boards', {}, 'POST');
-    if (data !== null) {
+    if (data !== null) {      
       dispatch(addingManyBoard(data.boards));
     }
   } catch(e) {

@@ -31,13 +31,9 @@ export default function BoardContainer({filter}: Props): JSX.Element {
     setOpen(true);
   }
 
-  const handleClose = (): void => {
+  const handleClose = useCallback(() => {
     setOpen(!open);
-  }
-
-  const useHandleClose = useCallback(() => {
-    handleClose();
-  }, [handleClose]);
+  }, [open]);
 
   return (
     <Box className={css.area}>
@@ -58,7 +54,7 @@ export default function BoardContainer({filter}: Props): JSX.Element {
       </Button>
       <ModalWindow
         open={open}
-        handleClose={useHandleClose}
+        handleClose={handleClose}
         dialogTitle={dialogTitle}
         buttonTitle={buttonTitle}
         request={addBoard}

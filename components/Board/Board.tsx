@@ -48,26 +48,18 @@ export default function Board({filter}: Props): JSX.Element | null {
     setOpen(true);
   }
 
-  const handleClose = (): void => {
-    setOpen(false);
-  }
+  const handleClose = useCallback(() => {
+    setOpen(false)
+  }, [open]);
 
   const handleClickOpenBoard = (id: number): void => {
     setSelectId(id)
     setOpenBoard(true);
   }
 
-  const handleCloseBoard = (): void => {
+  const handleCloseBoard = useCallback(() => {
     setOpenBoard(false);
-  }
-
-  const useHandleClose = useCallback(() => {
-    handleClose();
-  }, [handleClose]);
-
-  const useHandleCloseBoard = useCallback(() => {
-    handleCloseBoard();
-  }, [handleCloseBoard]);
+  }, [openBoard]);
 
   return (
     <Container
@@ -193,7 +185,7 @@ export default function Board({filter}: Props): JSX.Element | null {
       </Grid>
       <ModalWindow
         open={openBoard}
-        handleClose={useHandleCloseBoard}
+        handleClose={handleCloseBoard}
         dialogTitle={dialogTitleEditBoard}
         buttonTitle={buttonTitleEditBoard}
         selectId={selectId}
@@ -201,7 +193,7 @@ export default function Board({filter}: Props): JSX.Element | null {
       />
       <ModalWindow
         open={open}
-        handleClose={useHandleClose}
+        handleClose={handleClose}
         dialogTitle={dialogTitleTask}
         buttonTitle={buttonTitleTask}
         selectId={selectId}

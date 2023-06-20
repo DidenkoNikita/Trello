@@ -41,8 +41,6 @@ describe('Header component', () => {
     
         const data = await response.json();    
         
-        console.log(data.name);
-
         expect(data.name).not.toBeUndefined()
       } catch (err) {
         return console.log(err);
